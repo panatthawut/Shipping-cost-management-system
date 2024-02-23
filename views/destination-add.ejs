@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Address List</title>
+    <%- include('./head'); %>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <%- include('./header'); %>
+      </header>
+      <div class="main-content">
+        <h1 class="text-center text-primary mt-3 mb-3">เพิ่มข้อมูลปลายทาง</h1>
+        <br>
+    <form method="post" action="/insertDestination1">
+      
+      <label for="AddDesc">ที่อยู่</label>
+      <input type="text" class="form-control form-control-lg" name="AddDesc4"><br>
+    
+      <label for="SubDistrict">ตำบล</label>
+      <input type="text"class="form-control form-control-lg"  name="SubDistrict4"><br>
+    
+      <label for="District">อำเภอ</label>
+      <input type="text" class="form-control form-control-lg" name="District4"><br>
+    
+      <label for="Province">จังหวัด</label>
+      <input type="text"class="form-control form-control-lg"  name="Province4"><br>
+    
+      <label for="Zipcode">รหัสไปรษณีย์</label>
+      <input type="text" class="form-control form-control-lg" name="Zipcode4"><br>
+
+      <label for="DestinationDesc">รายละเอียดปลายทาง</label>
+      <input type="text" class="form-control form-control-lg" name="DestDesc"><br>
+    
+      <button type="submit"class="btn btn-primary">Submit</button>
+    </form>
+    </div>
+    </div>
+
+  </body>
+</html>

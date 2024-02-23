@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Document</title>
+    <%- include('./head'); %>
+</head>
+<body>
+    
+    <div class="wrapper">
+        <header>
+          <%- include('./header'); %>
+        </header>
+        <div class="main-content">
+            <h1 class="text-center text-primary mt-3 mb-3">ออกใบวางบิล</h1>
+        <br>
+    <form action="/billingPrint" method="post">
+        <input type="text" id="autocomplete_search6" class="form-control form-control-lg" name="Datas_search"
+            placeholder="ข้อมูลบันทึกงาน" />
+        <span id="billing_search"></span>
+        <br>
+        <input type="submit"class="btn btn-primary">
+    </form>
+    </div>
+    </div>
+</body>
+</html>
+<script>
+
+    function load_data6(query = '') {
+        fetch('/insertbilling?search_query=' + query + '').then(function (response) {
+
+            return response.json();
+
+        }).then(function (responseData) {
+
+            var html = '<ul class="list-group">';
+
+            if (responseData.length > 0) {
+                for (var count = 0; count < responseData.length; count++) {
+                    var regular_expression = new RegExp('(' + query + ')', 'gi');
+
+                    html += '<a href="#" class="list-group-item list-group-item-action" onclick="get_text6(this)">' + responseData[count].Datas.replace(regular_expression, '<span class="text-primary fw-bold">$1</span>') + '</a>';
+                }
+            }
+            else {
+                html += '<a href="#" class="list-group-item list-group-item-action disabled">No Data Found</a>';
+            }
+
+            html += '</ul>';
+
+            document.getElementById('billing_search').innerHTML = html;
+            
+
+        });
+    }
+
+    var search_element = document.getElementById("autocomplete_search6");
+
+    search_element.onkeyup = function () {
+
+        var query = search_element.value;
+
+        load_data6(query);
+
+    };
+
+    search_element.onfocus = function () {
+
+        var query = search_element.value;
+
+        load_data6(query);
+
+    };
+
+    function get_text6(event) {
+        var Datas = event.textContent;
+
+        console.log(Datas);
+
+        document.getElementById('autocomplete_search6').value = Datas;
+
+        document.getElementById('billing_search').innerHTML = '';
+    }
+
+</script>

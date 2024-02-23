@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <%- include('./head'); %>
+        <title>เพิ่มข้อมูลรถ</title>
+    </head>
+    <body>
+        <div class="wrapper">
+            <header>
+              <%- include('./header'); %>
+            </header>
+            <div class="main-content">
+      <form action="/add_car" method="post">
+        <div class="container">
+            <h1 class="text-center text-primary mt-3 mb-3">เพิ่มข้อมูลรถ</h1>
+
+            <!--<div class="card">
+                <div class="card-header">Autocomplete Search Example</div>
+                <div class="card-body">!-->
+                    
+                    <input type="text"  class="form-control form-control-lg" name="Registration" placeholder="ทะเบียนรถ" />
+                    <br>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="answer1" id="Y" value="Y">
+                      <label class="form-check-label" for="flexRadioDefault1">
+                        มีประกัน
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="answer1" id="N" value="N">
+                      <label class="form-check-label" for="flexRadioDefault2">
+                        ไม่มีกัน
+                      </label>
+                    </div>
+                    <br>
+                    <input type="text"  class="form-control form-control-lg" name="CarType" placeholder="ประเภทรถ" />
+                    <br>
+                    <input type="text"  class="form-control form-control-lg" name="CarDesc" placeholder="คำอธิบาย" />
+                    <br>
+                    <input type="text" id="autocomplete_search" class="form-control form-control-lg" name="Comname_search"  placeholder="บริษัทรถร่วม" />
+                    <span id="search_result"  ></span>
+
+                <!--</div>
+            </div>!-->
+            <br>
+            <input type="submit" class="btn btn-primary">
+        </div>
+       
+      </form>
+      </div>
+      </div>
+  </body>
+</html>
+
+<script>
+
+    function load_data(query = '')
+    {
+        fetch('/insertCar?search_query='+query+'').then(function(response){
+
+            return response.json();
+
+        }).then(function(responseData){
+
+            var html = '<ul class="list-group">';
+
+            if(responseData.length > 0)
+            {
+                for(var count = 0; count < responseData.length; count++)
+                {
+                    var regular_expression = new RegExp('('+query+')', 'gi');
+
+                    html += '<a href="#" class="list-group-item list-group-item-action" onclick="get_text(this)">'+responseData[count].NameCompany.replace(regular_expression, '<span class="text-primary fw-bold">$1</span>')+'</a>';
+                }
+            }
+            else
+            {
+                html += '<a href="#" class="list-group-item list-group-item-action disabled">No Data Found</a>';
+            }
+
+            html += '</ul>';
+
+            document.getElementById('search_result').innerHTML = html;
+
+        });
+    }
+
+    var search_element = document.getElementById("autocomplete_search");
+
+    search_element.onkeyup = function(){
+
+        var query = search_element.value;
+
+        load_data(query);
+
+    };
+
+    search_element.onfocus = function(){
+
+        var query = search_element.value;
+
+        load_data(query);
+
+    };
+
+    function get_text(event)
+    {
+        var NameCompany = event.textContent;
+
+        console.log(NameCompany);
+
+        document.getElementById('autocomplete_search').value = NameCompany;
+
+        document.getElementById('search_result').innerHTML = '';
+    }
+
+</script>

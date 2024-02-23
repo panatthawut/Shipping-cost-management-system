@@ -1,0 +1,47 @@
+<!-- views/customer.ejs -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Company List</title>
+    <%- include('./head'); %>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+          <%- include('./header'); %>
+        </header>
+        <div class="main-content">
+    <h1 class="text-primary mt-3 mb-3">รายชื่อรถร่วม</h1>
+    <table  class="table table-striped">
+        <thead>
+            <tr>
+                <th>รหัสรถร่วม</th>
+                <th>ชื่อรถร่วม</th>
+                <th>รหัสที่อยู่</th>
+                <th>เบอร์โทร</th>
+                <th>อีเมล</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% companyList.forEach(function(company) { %>
+                <tr>
+                    <td><%= company.IDCompany %></td>
+                    <td><%= company.NameCompany %></td>
+                    <td><%= company.AddID %></td>
+                    <td><%= company.telContact %></td>
+                    <td><%= company.email %></td>
+                    <td>
+                        <a href="/company/edit/<%= company.IDCompany %>">Edit</a>
+                        <a href="/company/delete/<%= company.IDCompany %>">Delete</a>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    
+    </div>
+    </div>
+</body>
+</html>

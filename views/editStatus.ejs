@@ -1,0 +1,31 @@
+<!-- views/customer_edit.ejs -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('./head'); %>
+    <title>Edit Status</title>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+          <%- include('./header'); %>
+        </header>
+        <div class="main-content">
+    <h1>เเก้ไขสถานะการจัดส่ง</h1>
+    <form method="POST" action="/status/edit/<%= workrecordstatus.IDPac %>">
+      <div>
+        <input type="hidden" name="IDPac" value="<%= workrecordstatus.IDPac %>" required>
+    </div>   
+      <div>
+            <label for="statusString">สถานะ</label>
+            <input type="text"class="form-control form-control-lg" name="statusString" value="<%= workrecordstatus.StatusString %>" required>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+    
+    </div>
+    </div>
+</body>
+</html>

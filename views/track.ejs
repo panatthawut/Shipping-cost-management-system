@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>System Tracking</title>
+    
+      <%- include('./head'); %>
+    
+  </head>
+  <body>
+    <div class="">
+      
+      <div class="main-content">
+        <h1 class="text-center text-primary mt-3 mb-3">ตรวจสอบสถานะการจัดส่ง</h1>
+        <br>
+    <form action="/system-tracking" method="post">
+      <label for="trackingID">กรอกรหัสการจัดส่ง</label>
+      
+      <input class="form-control form-control-lg" type="text" name="trackingID" id="trackingID">
+      <br>
+      <button type="submit" class="btn btn-primary ">Track</button>
+    </form>
+    </div>
+    </div>
+  </body>
+</html>

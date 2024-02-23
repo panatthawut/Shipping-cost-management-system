@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome</title>
+	<%- include('./head'); %>
+</head>
+<body>
+	<div class="wrapper">
+		<header>
+		  <%- include('./header'); %>
+		</header>
+		<div class="main-content">
+    <h1 class="text-primary mt-3 mb-3">Welcome <%= user.name %>!</h1>
+	
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>วันที่</th>
+				<th>รายรับ</th>
+                <th>รายจ่าย</th>
+                <th>กำไร</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% turnoverList.forEach(function(turnover) { %>
+                <tr>
+                    <td><%= turnover.TurnDate %></td>
+					<td><%= turnover.Income %></td>
+                    <td><%= turnover.Outcome %></td>
+                    <td><%= turnover.Profit %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+		<thead>
+            <tr>
+                <th>รวม</th>
+				<td><%= sumAll.SumIncome %></td>
+				<td><%= sumAll.SumOutcome %></td>
+                <td><%= sumAll.SumProfit %></td>
+            </tr>
+        </thead>
+    </table>
+	</div>
+	</div>
+</body>
+</html>

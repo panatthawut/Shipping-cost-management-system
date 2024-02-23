@@ -1,0 +1,59 @@
+<!-- views/customer_edit.ejs -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('./head'); %>
+  </head>
+<body>
+  <div class="wrapper">
+  <header>
+    <%- include('./header'); %>
+  </header>
+  <div class="main-content">
+    <h1 class="text-center text-primary mt-3 mb-3"> เเก้ไขข้อมูลบริษัท</h1>
+    <form method="POST" action="/company/edit/<%= company.IDCompany %>">
+      <div>
+        <input type="hidden" name="AddID" value="<%= company.AddID %>" required>
+    </div>   
+      <div>
+            <label for="name">ชื่อ</label>
+            <input type="text"class="form-control form-control-lg" name="NameCompany" value="<%= company.NameCompany %>" required>
+        </div>
+
+        <div>
+            <label for="tel">เบอร์โทร</label>
+            <input type="text"class="form-control form-control-lg" name="telContact" value="<%= company.telContact %>" required>
+        </div>
+        <div>
+            <label for="email">อีเมล</label>
+            <input type="email"class="form-control form-control-lg" name="email" value="<%= company.email %>" required>
+        </div>
+        <div>
+            <label for="addDesc">ที่อยู่</label>
+            <input type="text" class="form-control form-control-lg"name="addDesc" value="<%= address.AddDesc %>" required>
+        </div>
+          <div>
+            <label for="subDist">ตำบล</label>
+            <input type="text" class="form-control form-control-lg"name="subDist" value="<%= address.SubDistrict %>" required>
+        </div>
+          <div>
+            <label for="dist">อำเภอ</label>
+            <input type="text"class="form-control form-control-lg" name="dist" value="<%= address.District %>" required>
+        </div>
+        <div>
+          <label for="prov">จังหวัด</label>
+          <input type="text" class="form-control form-control-lg"name="prov" value="<%= address.Province %>" required>
+        </div>
+        <div>
+          <label for="zipcode">รหัสไปรษณีย์</label>
+          <input type="text"class="form-control form-control-lg" name="zipcode" value="<%= address.Zipcode %>" required>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+    
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!-- views/customer.ejs -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer List</title>
+    <%- include('./head'); %>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+          <%- include('./header'); %>
+        </header>
+        <div class="main-content">
+    <h1 class="text-primary mt-3 mb-3">รายชื่อลูกค้า</h1>
+    <table  class="table table-striped">
+        <thead>
+            <tr>
+                <th>รหัสลูกค้า</th>
+                <th>ชื่อลูกค้า</th>
+                <th>รหัสที่อยู่</th>
+                <th>เบอร์โทร</th>
+                <th>อีเมล</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% customerList.forEach(function(customer) { %>
+                <tr>
+                    <td><%= customer.IDCustomer %></td>
+                    <td><%= customer.NameCustomer %></td>
+                    <td><%= customer.AddID %></td>
+                    <td><%= customer.telContact %></td>
+                    <td><%= customer.email %></td>
+                    <td>
+                        <a href="/customer/edit/<%= customer.IDCustomer %>">Edit</a>
+                        <a href="/customer/delete/<%= customer.IDCustomer %>">Delete</a>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    
+    </div>
+    </div>
+</body>
+</html>

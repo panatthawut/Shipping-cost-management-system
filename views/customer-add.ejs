@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <%- include('./head'); %>
+    <title>Address List</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <%- include('./header'); %>
+      </header>
+      <div class="main-content">
+        <h1 class="text-center text-primary mt-3 mb-3">เพิ่มข้อมูลลูกค้า</h1>
+        <br>
+    <form method="post" action="/insertCustomer1">
+      
+      <label for="AddDesc">ชื่อลูกค้า</label>
+      <input type="text" class="form-control form-control-lg" name="NameCustomer1"><br>
+      <label for="AddDesc">อีเมล</label>
+      <input type="text"class="form-control form-control-lg"  name="email1"><br>
+      <label for="AddDesc">เบอร์โทร</label>
+      <input type="text"class="form-control form-control-lg"  name="telContact1"><br>
+
+
+
+
+      <label for="AddDesc">ที่อยู่</label>
+      <input type="text"class="form-control form-control-lg"  name="AddDesc1"><br>
+    
+      <label for="SubDistrict">ตำบล</label>
+      <input type="text" class="form-control form-control-lg" name="SubDistrict1"><br>
+    
+      <label for="District">อำเภอ</label>
+      <input type="text"class="form-control form-control-lg"  name="District1"><br>
+    
+      <label for="Province">จังหวัด</label>
+      <input type="text" class="form-control form-control-lg" name="Province1"><br>
+    
+      <label for="Zipcode">รหัสไปรษณีย์</label>
+      <input type="text"class="form-control form-control-lg"  name="Zipcode1"><br>
+      
+
+    
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    </div>
+    </div>
+
+  </body>
+</html>

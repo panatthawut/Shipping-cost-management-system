@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <%- include('./head'); %>
+    </head>
+
+<body class="">
+    <div class="wrapper">
+        <header>
+          <%- include('./header'); %>
+        </header>
+        <div class="main-content">
+            <h1 class="text-center text-primary mt-3 mb-3">เพิ่มบันทึกงาน</h1>
+        <br>
+    <form action="/addworkrecord" method="post">
+        <label for="birthday">วันที่จัดส่ง:</label>
+        <input type="date"class="form-control form-control-lg" id="deliverDate" name="deliverDate">
+        <br><br>
+    <input type="text" class="form-control form-control-lg" name="weight" placeholder="น้ำหนักบรรทุก(ตัน)" />
+    <br>
+    <input type="text" class="form-control form-control-lg" name="price" placeholder="ราคาต่อตัน" />
+    <br>
+    
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="answer2" value="Y" id="Y">
+        <label class="form-check-label" for="flexRadioDefault1">
+            มีประกันสินค้า
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="answer2" value="N" id="N" checked>
+        <label class="form-check-label" for="flexRadioDefault2">
+            ไม่มีประกันสินค้า
+        </label>
+      </div>
+
+<br>
+    <input type="text" id="autocomplete_search1" class="form-control form-control-lg" name="OrName_search"
+        placeholder="ต้นทาง" />
+    <span id="Origin_search_result"></span>
+    <br>
+    <input type="text" id="autocomplete_search2" class="form-control form-control-lg" name="DestName_search"
+        placeholder="ปลายทาง" />
+    <span id="Destination_search_result"></span>
+    <br>
+    <input type="text" id="autocomplete_search3" class="form-control form-control-lg" name="CusName_searchWR"
+        placeholder="ชื่อลูกค้า" />
+    <span id="Customer_search_result"></span>
+    <br>
+    <input type="text" id="autocomplete_search4" class="form-control form-control-lg" name="Registration_search"
+        placeholder="ทะเบียนรถ" />
+    <span id="Car_search_result"></span>
+    <br>
+    <input type="text" id="autocomplete_search5" class="form-control form-control-lg" name="ProName_search"
+        placeholder="สินค้า" />
+    <span id="Product_search_result"></span>
+    <br>
+    <input type="submit" class="btn btn-primary">
+</form>
+</div>
+</div>
+
+</body>
+
+</html>
+<script>
+
+    function load_data1(query = '') {
+        fetch('/insertWorkrecord1?search_query=' + query + '').then(function (response) {
+
+            return response.json();
+
+        }).then(function (responseData) {
+
+            var html = '<ul class="list-group">';
+
+            if (responseData.length > 0) {
+                for (var count = 0; count < responseData.length; count++) {
+                    var regular_expression = new RegExp('(' + query + ')', 'gi');
+
+                    html += '<a href="#" class="list-group-item list-group-item-action" onclick="get_text1(this)">' + responseData[count].FullAddressOr.replace(regular_expression, '<span class="text-primary fw-bold">$1</span>') + '</a>';
+                }
+            }
+            else {
+                html += '<a href="#" class="list-group-item list-group-item-action disabled">No Data Found</a>';
+            }
+
+            html += '</ul>';
+
+            document.getElementById('Origin_search_result').innerHTML = html;
+            
+
+        });
+    }
+
+    var search_element = document.getElementById("autocomplete_search1");
+
+    search_element.onkeyup = function () {
+
+        var query = search_element.value;
+
+        load_data1(query);
+
+    };
+
+    search_element.onfocus = function () {
+
+        var query = search_element.value;
+
+        load_data1(query);
+
+    };
+
+    function get_text1(event) {
+        var FullAddressOr = event.textContent;
+
+        console.log(FullAddressOr);
+
+        document.getElementById('autocomplete_search1').value = FullAddressOr;
+
+        document.getElementById('Origin_search_result').innerHTML = '';
+    }
+
+</script>
+<script>
+
+    function load_data2(query = '') {
+        fetch('/insertWorkrecord2?search_query=' + query + '').then(function (response) {
+
+            return response.json();
+
+        }).then(function (responseData) {
+
+            var html = '<ul class="list-group">';
+
+            if (responseData.length > 0) {
+                for (var count = 0; count < responseData.length; count++) {
+                    var regular_expression = new RegExp('(' + query + ')', 'gi');
+
+                    html += '<a href="#" class="list-group-item list-group-item-action" onclick="get_text2(this)">' + responseData[count].FullAddressDest.replace(regular_expression, '<span class="text-primary fw-bold">$1</span>') + '</a>';
+                }
+            }
+            else {
+                html += '<a href="#" class="list-group-item list-group-item-action disabled">No Data Found</a>';
+            }
+
+            html += '</ul>';
+
+            document.getElementById('Destination_search_result').innerHTML = html;
+            
+
+        });
+    }
+
+    var search_element = document.getElementById("autocomplete_search2");
+
+    search_element.onkeyup = function () {
+
+        var query = search_element.value;
+
+        load_data2(query);
+
+    };
+
+    search_element.onfocus = function () {
+
+        var query = search_element.value;
+
+        load_data2(query);
+
+    };
+
+    function get_text2(event) {
+        var FullAddressDest = event.textContent;
+
+        console.log(FullAddressDest);
+
+        document.getElementById('autocomplete_search2').value = FullAddressDest;
+
+        document.getElementById('Destination_search_result').innerHTML = '';
+    }
+
+</script>
+<script>
+
+    function load_data3(query = '') {
+        fetch('/insertWorkrecord3?search_query=' + query + '').then(function (response) {
+
+            return response.json();
+
+        }).then(function (responseData) {
+
+            var html = '<ul class="list-group">';
+
+            if (responseData.length > 0) {
+                for (var count = 0; count < responseData.length; count++) {
+                    var regular_expression = new RegExp('(' + query + ')', 'gi');
+
+                    html += '<a href="#" class="list-group-item list-group-item-action" onclick="get_text3(this)">' + responseData[count].NameCustomer.replace(regular_expression, '<span class="text-primary fw-bold">$1</span>') + '</a>';
+                }
+            }
+            else {
+                html += '<a href="#" class="list-group-item list-group-item-action disabled">No Data Found</a>';
+            }
+
+            html += '</ul>';
+
+            document.getElementById('Customer_search_result').innerHTML = html;
+            
+
+        });
+    }
+
+    var search_element = document.getElementById("autocomplete_search3");
+
+    search_element.onkeyup = function () {
+
+        var query = search_element.value;
+
+        load_data3(query);
+
+    };
+
+    search_element.onfocus = function () {
+
+        var query = search_element.value;
+
+        load_data3(query);
+
+    };
+
+    function get_text3(event) {
+        var NameCustomer = event.textContent;
+
+        console.log(NameCustomer);
+
+        document.getElementById('autocomplete_search3').value = NameCustomer;
+
+        document.getElementById('Customer_search_result').innerHTML = '';
+    }
+
+</script>
+<script>
+
+    function load_data4(query = '') {
+        fetch('/insertWorkrecord4?search_query=' + query + '').then(function (response) {
+
+            return response.json();
+
+        }).then(function (responseData) {
+
+            var html = '<ul class="list-group">';
+
+            if (responseData.length > 0) {
+                for (var count = 0; count < responseData.length; count++) {
+                    var regular_expression = new RegExp('(' + query + ')', 'gi');
+
+                    html += '<a href="#" class="list-group-item list-group-item-action" onclick="get_text4(this)">' + responseData[count].Registration.replace(regular_expression, '<span class="text-primary fw-bold">$1</span>') + '</a>';
+                }
+            }
+            else {
+                html += '<a href="#" class="list-group-item list-group-item-action disabled">No Data Found</a>';
+            }
+
+            html += '</ul>';
+
+            document.getElementById('Car_search_result').innerHTML = html;
+            
+
+        });
+    }
+
+    var search_element = document.getElementById("autocomplete_search4");
+
+    search_element.onkeyup = function () {
+
+        var query = search_element.value;
+
+        load_data4(query);
+
+    };
+
+    search_element.onfocus = function () {
+
+        var query = search_element.value;
+
+        load_data4(query);
+
+    };
+
+    function get_text4(event) {
+        var Registration = event.textContent;
+
+        console.log(Registration);
+
+        document.getElementById('autocomplete_search4').value = Registration;
+
+        document.getElementById('Car_search_result').innerHTML = '';
+    }
+
+</script>
+<script>
+
+    function load_data5(query = '') {
+        fetch('/insertWorkrecord5?search_query=' + query + '').then(function (response) {
+
+            return response.json();
+
+        }).then(function (responseData) {
+
+            var html = '<ul class="list-group">';
+
+            if (responseData.length > 0) {
+                for (var count = 0; count < responseData.length; count++) {
+                    var regular_expression = new RegExp('(' + query + ')', 'gi');
+
+                    html += '<a href="#" class="list-group-item list-group-item-action" onclick="get_text5(this)">' + responseData[count].ProName.replace(regular_expression, '<span class="text-primary fw-bold">$1</span>') + '</a>';
+                }
+            }
+            else {
+                html += '<a href="#" class="list-group-item list-group-item-action disabled">No Data Found</a>';
+            }
+
+            html += '</ul>';
+
+            document.getElementById('Product_search_result').innerHTML = html;
+            
+
+        });
+    }
+
+    var search_element = document.getElementById("autocomplete_search5");
+
+    search_element.onkeyup = function () {
+
+        var query = search_element.value;
+
+        load_data5(query);
+
+    };
+
+    search_element.onfocus = function () {
+
+        var query = search_element.value;
+
+        load_data5(query);
+
+    };
+
+    function get_text5(event) {
+        var ProName = event.textContent;
+
+        console.log(ProName);
+
+        document.getElementById('autocomplete_search5').value = ProName;
+
+        document.getElementById('Product_search_result').innerHTML = '';
+    }
+
+</script>

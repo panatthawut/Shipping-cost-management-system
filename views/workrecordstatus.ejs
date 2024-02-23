@@ -1,0 +1,42 @@
+<!-- views/customer.ejs -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Workrecord Status List</title>
+    <%- include('./head'); %>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+          <%- include('./header'); %>
+        </header>
+        <div class="main-content">
+    <h1 class="text-primary mt-3 mb-3">รายการจัดส่ง</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>รหัสการจัดส่ง</th>
+                <th>รหัสงาน</th>
+                <th>สถานะ</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% workrecordstatusList.forEach(function(workrecordstatus) { %>
+                <tr>
+                    <td><%= workrecordstatus.IDPac %></td>
+                    <td><%= workrecordstatus.IDWork %></td>
+                    <td><%= workrecordstatus.StatusString %></td>
+                    <td>
+                        <a href="/workrecordstatus/edit/<%= workrecordstatus.IDPac %>">Edit</a>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    
+    </div>
+    </div>
+</body>
+</html>
